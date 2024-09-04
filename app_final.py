@@ -67,7 +67,7 @@ if selected == 'Heart Disease Prediction':
         oldpeak = st.text_input('ST depression induced by exercise (oldpeak)')
 
     with col2:
-        slope = st.text_input('Slope of the peak exercise ST segment(slope)')
+        slope = st.text_input('Slope of the peak exercise ST segment (slope)')
 
     with col3:
         ca = st.text_input('Major vessels colored by flourosopy (ca)')
