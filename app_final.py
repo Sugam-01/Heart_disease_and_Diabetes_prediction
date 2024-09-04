@@ -9,20 +9,22 @@ st.set_page_config(page_title="Health Assistant",
                    layout="wide",
                    page_icon="🧑‍⚕️")
 
-try:
-    # loading the saved models
-    diabetes_model = pickle.load(open('saved_models/diabetes_model.pkl', 'rb'))
-    st.write("Diabetes model loaded successfully.")
-except Exception as e:
-    st.error(f"Error loading diabetes model: {e}")
-    diabetes_model = None
-
-try:
-    heart_disease_model = pickle.load(open('saved_models/heart_disease_model.pkl', 'rb'))
-    st.write("Heart disease model loaded successfully.")
-except Exception as e:
-    st.error(f"Error loading heart disease model: {e}")
-    heart_disease_model = None
+# try:
+#     # loading the saved models
+#     diabetes_model = pickle.load(open('saved_models/diabetes_model.pkl', 'rb'))
+#     st.write("Diabetes model loaded successfully.")
+# except Exception as e:
+#     st.error(f"Error loading diabetes model: {e}")
+#     diabetes_model = None
+# loading the saved models
+diabetes_model = pickle.load(open('saved_models/diabetes_model.pkl', 'rb'))
+heart_disease_model = pickle.load(open('saved_models/heart_disease_model.pkl', 'rb'))
+# try:
+#     heart_disease_model = pickle.load(open('saved_models/heart_disease_model.pkl', 'rb'))
+#     st.write("Heart disease model loaded successfully.")
+# except Exception as e:
+#     st.error(f"Error loading heart disease model: {e}")
+#     heart_disease_model = None
 
 # Sidebar for navigation
 st.sidebar.title("Disease Prediction System")
@@ -67,7 +69,7 @@ if selected == 'Heart Disease Prediction':
         oldpeak = st.text_input('ST depression induced by exercise (oldpeak)')
 
     with col2:
-        slope = st.text_input('Slope of the peak exercise ST segment(slope)')
+        slope = st.text_input('Slope of the peak exercise ST segment (slope)')
 
     with col3:
         ca = st.text_input('Major vessels colored by flourosopy (ca)')
