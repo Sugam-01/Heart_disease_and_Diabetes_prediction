@@ -1,2 +1,2 @@
-# Heart-and-Diabetes-disease-prediction
-Link predictor: https://heart-and-diabetes-disease-prediction-sugambarman.streamlit.app/
+# Heart_disease_and_Diabetes_prediction
+Link predictor: https://heartanddiabetes-sugam.streamlit.app/
