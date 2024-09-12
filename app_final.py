@@ -9,27 +9,14 @@ st.set_page_config(page_title="Health Assistant",
                    layout="wide",
                    page_icon="🧑‍⚕️")
 
-# try:
-#     # loading the saved models
-#     diabetes_model = pickle.load(open('saved_models/diabetes_model.pkl', 'rb'))
-#     st.write("Diabetes model loaded successfully.")
-# except Exception as e:
-#     st.error(f"Error loading diabetes model: {e}")
-#     diabetes_model = None
 # loading the saved models
 diabetes_model = pickle.load(open('saved_models/diabetes_model.pkl', 'rb'))
 heart_disease_model = pickle.load(open('saved_models/heart_disease_model.pkl', 'rb'))
-# try:
-#     heart_disease_model = pickle.load(open('saved_models/heart_disease_model.pkl', 'rb'))
-#     st.write("Heart disease model loaded successfully.")
-# except Exception as e:
-#     st.error(f"Error loading heart disease model: {e}")
-#     heart_disease_model = None
 
 # Sidebar for navigation
 st.sidebar.title("Disease Prediction System")
 selected = st.sidebar.radio('Select a disease to predict:',
-                            ['Heart Disease Prediction','Diabetes Prediction'])
+                            ['Heart Disease Prediction', 'Diabetes Prediction'])
 
 # Heart Disease Prediction Page
 if selected == 'Heart Disease Prediction':
@@ -82,21 +69,24 @@ if selected == 'Heart Disease Prediction':
 
     # Creating a button for Prediction
     if st.button('Heart Disease Test Result'):
-        if heart_disease_model is not None:
-            try:
-                user_input = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
-                user_input = [float(x) for x in user_input]
-
-                heart_prediction = heart_disease_model.predict([user_input])
-
-                if heart_prediction[0] == 1:
-                    heart_diagnosis = 'The person is having heart disease'
-                else:
-                    heart_diagnosis = 'The person does not have any heart disease'
-            except Exception as e:
-                heart_diagnosis = f"Error in prediction: {e}"
+        # Check if any input field is empty
+        user_input = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
+        if '' in user_input:
+            heart_diagnosis = 'Kindly fill all the input fields'
         else:
-            heart_diagnosis = "Heart disease model not available."
+            if heart_disease_model is not None:
+                try:
+                    user_input = [float(x) for x in user_input]
+                    heart_prediction = heart_disease_model.predict([user_input])
+
+                    if heart_prediction[0] == 1:
+                        heart_diagnosis = 'The person is having heart disease'
+                    else:
+                        heart_diagnosis = 'The person does not have any heart disease'
+                except Exception as e:
+                    heart_diagnosis = f"Error in prediction: {e}"
+            else:
+                heart_diagnosis = "Heart disease model not available."
 
         st.success(heart_diagnosis)
 
@@ -138,20 +128,23 @@ if selected == 'Diabetes Prediction':
 
     # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-        if diabetes_model is not None:
-            try:
-                user_input = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]
-                user_input = [float(x) for x in user_input]
-                diab_prediction = diabetes_model.predict([user_input])
-
-                if diab_prediction[0] == 1:
-                    diab_diagnosis = 'The person is diabetic'
-                else:
-                    diab_diagnosis = 'The person is not diabetic'
-            except Exception as e:
-                diab_diagnosis = f"Error in prediction: {e}"
+        # Check if any input field is empty
+        user_input = [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]
+        if '' in user_input:
+            diab_diagnosis = 'Kindly fill all the input fields'
         else:
-            diab_diagnosis = "Diabetes model not available."
+            if diabetes_model is not None:
+                try:
+                    user_input = [float(x) for x in user_input]
+                    diab_prediction = diabetes_model.predict([user_input])
+
+                    if diab_prediction[0] == 1:
+                        diab_diagnosis = 'The person is diabetic'
+                    else:
+                        diab_diagnosis = 'The person is not diabetic'
+                except Exception as e:
+                    diab_diagnosis = f"Error in prediction: {e}"
+            else:
+                diab_diagnosis = "Diabetes model not available."
 
         st.success(diab_diagnosis)
-
